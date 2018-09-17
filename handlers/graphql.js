@@ -1,8 +1,12 @@
 import { server } from "../lib/graphql";
-const handler = server.createHandler();
 
-export const query = (event, context, cb) => {
-  console.log(event);
-  return cb();
-  // return handler(event, context, cb);
+export const query = (event, context, callback) => {
+  const handler = server.createHandler({
+    cors: {
+      origin: "*",
+      credentials: true
+    }
+  });
+  context.callbackWaitsForEmptyEventLoop = false;
+  return handler(event, context, callback);
 };

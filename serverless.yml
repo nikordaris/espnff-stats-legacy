@@ -7,7 +7,6 @@ plugins:
 provider:
   name: aws
   runtime: nodejs6.10
-  stage: test
   environment:
     DYNAMODB_TABLE: ${self:service}-${self:provider.stage}
   iamRoleStatments:
@@ -31,8 +30,13 @@ functions:
     handler: handlers/graphql.query
     events:
       - http:
-        path: /graphql
-        method: POST
+          path: graphql
+          method: post
+          cores: true
+      - http:
+          path: graphql
+          method: get
+          cores: true
 
 resources:
   Resources:

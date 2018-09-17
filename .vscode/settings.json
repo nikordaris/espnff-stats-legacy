@@ -1,4 +1,8 @@
 {
   "editor.tabSize": 2,
-  "[javascript]": { "editor.formatOnSave": true }
+  "eslint.packageManager": "yarn",
+  "[javascript]": {
+    "editor.formatOnSave": true
+  },
+  "javascript.preferences.quoteStyle": "single"
 }
