@@ -1,3 +1,32 @@
+type Player {
+  playerId: ID!
+  playerName: String!
+  playerPosition: String
+  lineupPosition: String
+  nflTeam: String
+  nflTeamAbbrev: String
+  nflTeamOpp: String
+  nflTeamOppAbbrev: String
+  projectedPoints: Float
+  realPoints: Float
+}
+
+type Team {
+  teamId: ID!
+  teamName: String
+  teamAbbrev: String
+  logoUrl: String
+  projectedPoints: Float
+  realPoints: Float
+  optimalPoints: Float
+  players: [Player!]!
+}
+
+type Standing {
+  scorePeriodId: ID!
+  team: Team!
+}
+
 type Query {
-  hello: String
+  standings: [Standing!]!
 }
