@@ -23,10 +23,10 @@ type Team {
 }
 
 type Standing {
-  scorePeriodId: ID!
+  scoringPeriodId: ID!
   team: Team!
 }
 
 type Query {
-  standings: [Standing!]!
+  teamStandings: [Standing!]
 }
