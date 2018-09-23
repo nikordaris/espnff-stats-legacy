@@ -23,7 +23,11 @@ module.exports = {
         exclude: /node_modules/,
         use: [
           {
-            loader: "babel-loader"
+            loader: "babel-loader",
+            options: {
+              presets: [["env", { targets: { node: "6.10" } }]],
+              plugins: ["transform-object-rest-spread", "source-map-support"]
+            }
           }
         ]
       },

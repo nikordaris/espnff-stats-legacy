@@ -1,5 +1,5 @@
 type Player {
-  playerId: ID!
+  playerId: Int!
   playerName: String!
   playerPosition: String
   lineupPosition: String
@@ -11,22 +11,42 @@ type Player {
   realPoints: Float
 }
 
-type Team {
-  teamId: ID!
+type TeamStats {
+  prevTeamStats: [TeamStats]
+  scoringPeriodId: Int!
+  teamId: Int!
   teamName: String
   teamAbbrev: String
   logoUrl: String
-  projectedPoints: Float
-  realPoints: Float
+  pointsFor: Float
+  pointsAgainst: Float
+  projectedPointsFor: Float
+  projectedPointsAgainst: Float
+  benchPointsFor: Float
+  benchPointAgainst: Float
+  projectedBenchPointsFor: Float
+  projectedBenchPointsAgainst: Float
   optimalPoints: Float
-  players: [Player!]!
-}
-
-type Standing {
-  scoringPeriodId: ID!
-  team: Team!
+  scoringDifferential: Float
+  last3AvgFor: Float
+  last3AvgOptimal: Float
+  seasonAvgFor: Float
+  seasonHighFor: Float
+  seasonLowFor: Float
+  seasonAvgOptimal: Float
+  seasonHighOptimal: Float
+  seasonLowOptimal: Float
+  totalFor: Float
+  totalAgainst: Float
+  totalBench: Float
+  totalOptimal: Float
+  totalDifferential: Float
+  seasonStdDevPF: Float
+  efficiency: Float
+  totalEfficiency: Float
+  totalCoachRating: Float,
 }
 
 type Query {
-  teamStandings: [Standing!]
+  teamStats(teamId: Int!): [TeamStats!]
 }

@@ -4,7 +4,9 @@ const server = createServer(
   process.env.ESPN_S3_COOKIE,
   process.env.SWID_COOKIE,
   process.env.LEAGUE_ID,
-  process.env.SEASON
+  process.env.SEASON,
+  process.env.TOTAL_SCORING_PERIODS,
+  process.env.LINEUP_SLOT_IDS
 );
 
 export const query = (event, context, callback) => {
