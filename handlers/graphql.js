@@ -6,7 +6,8 @@ const server = createServer(
   process.env.LEAGUE_ID,
   process.env.SEASON,
   process.env.TOTAL_SCORING_PERIODS,
-  process.env.LINEUP_SLOT_IDS
+  process.env.LINEUP_SLOT_IDS,
+  process.env.LEAGUE_SIZE
 );
 
 export const query = (event, context, callback) => {

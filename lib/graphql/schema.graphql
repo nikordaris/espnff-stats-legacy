@@ -47,6 +47,15 @@ type TeamStats {
   totalCoachRating: Float,
 }
 
+type LeagueStats {
+  teamId: Int
+  teamName: String
+  teamAbbrev: String
+  logoUrl: String
+  teamStats: [TeamStats!]
+}
+
 type Query {
   teamStats(teamId: Int!): [TeamStats!]
+  leagueStats: [LeagueStats!]
 }
