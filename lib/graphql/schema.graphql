@@ -14,7 +14,7 @@ type Player {
 type TeamStats {
   prevTeamStats: [TeamStats]
   scoringPeriodId: Int!
-  teamId: Int!
+  id: ID!
   teamName: String
   teamAbbrev: String
   logoUrl: String
@@ -48,14 +48,37 @@ type TeamStats {
 }
 
 type LeagueStats {
-  teamId: Int
+  id: ID
   teamName: String
   teamAbbrev: String
   logoUrl: String
   teamStats: [TeamStats!]
 }
 
+type TeamOwner {
+  firstName: String
+  lastName: String
+  id: ID!
+}
+
+type TeamStanding {
+  id: Int
+  teamName: String
+  teamAbbrev: String
+  owners: [TeamOwner]
+  divisionName: String
+  wins: Int
+  losses: Int
+  streakLength: Int
+  streakType: String
+  pointsFor: Float
+  pointsAgainst: Float
+  divisionStanding: Int
+  overallStanding: Int
+}
+
 type Query {
-  teamStats(teamId: Int!): [TeamStats!]
+  standings: [TeamStanding]
+  teamStats(id: ID!): [TeamStats!]
   leagueStats: [LeagueStats!]
 }

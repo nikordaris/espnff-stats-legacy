@@ -4,25 +4,27 @@ plugins:
   - serverless-dotenv-plugin
   - serverless-webpack
   - serverless-offline
+  - serverless-finch
 
 provider:
   name: aws
   runtime: nodejs6.10
   stage: ${opt:stage, 'dev'}
-  environment:
-    DYNAMODB_TABLE: ${self:service}-${self:provider.stage}
-  iamRoleStatments:
-    - Effect: Allow
-      Action:
-        - dynamodb:GetItem
-        - dynamodb:UpdateItem
-      Resource: "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.DYNAMODB_TABLE}"
+  region: ${opt:region, 'us-west-2'}
 
 custom:
   webpack:
     webpackConfig: ./webpack.config.js
     includeModules: true
     packager: yarn
+  client:
+    bucketName: espn-ff-stats-${self:provider.stage}
+    distributionFolder: client/build/
+    indexDocument: index.html
+    errorDocument: index.html
+  serverless-offline:
+    port: 4000
+
 
 package:
   individually: true
@@ -34,37 +36,8 @@ functions:
       - http:
           path: graphql
           method: post
-          cores: true
+          cors: true
       - http:
           path: graphql
           method: get
-          cores: true
-
-resources:
-  Resources:
-    PlayerTable:
-      Type: "AWS::DynamoDB::Table"
-      Properties:
-        AttributeDefinitions:
-          - AttributeName: id
-            AttributeType: S
-        KeySchema:
-          - AttributeName: id
-            KeyType: HASH
-        ProvisionedThroughput:
-          ReadCapacityUnits: 1
-          WriteCapacityUnits: 1
-        TableName: ${self:provider.environment.DYNAMODB_TABLE}
-    TeamTable:
-      Type: "AWS::DynamoDB::Table"
-      Properties:
-        AttributeDefinitions:
-          - AttributeName: id
-            AttributeType: S
-        KeySchema:
-          - AttributeName: id
-            KeyType: HASH
-        ProvisionedThroughput:
-          ReadCapacityUnits: 1
-          WriteCapacityUnits: 1
-        TableName: ${self:provider.environment.DYNAMODB_TABLE}
+          cors: true

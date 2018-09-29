@@ -27,6 +27,7 @@
     "graphql-import-loader": "^0.2.1",
     "serverless": "^1.26.1",
     "serverless-dotenv-plugin": "^1.2.0",
+    "serverless-finch": "^2.3.2",
     "serverless-offline": "^3.20.1",
     "serverless-webpack": "^5.2.0",
     "webpack": "^4.2.0",

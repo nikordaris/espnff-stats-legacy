@@ -11,7 +11,6 @@ const server = createServer(
 );
 
 export const query = (event, context, callback) => {
-  console.log("LEAGUE_ID: ", process.env.LEAGUE_ID);
   const handler = server.createHandler({
     cors: {
       origin: "*",
