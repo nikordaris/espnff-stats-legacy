@@ -1,7 +1,13 @@
 import React from "react";
+import TeamStatsOverviewContainer from "../containers/TeamStatsOverviewContainer";
 
 const TeamStatsOverview = props => {
-  return <div>TeamStatsOverview</div>;
+  const {
+    match: {
+      params: { teamId }
+    }
+  } = props;
+  return <TeamStatsOverviewContainer teamId={teamId} />;
 };
 
 export default TeamStatsOverview;

@@ -1,18 +1,56 @@
 import React from "react";
-import { graphql } from "react-apollo";
+import { graphql, compose } from "react-apollo";
 import gql from "graphql-tag";
 import { Link } from "react-router-dom";
+import { Nav, NavItem } from "reactstrap";
+import injectSheet from "react-jss";
 
-const SideBarContainer = ({ data: { loading, standings } }) => {
+const styles = theme => ({
+  sidebar: {},
+  navItem: {
+    padding: [7, 0, 7, 0],
+    color: "white",
+    fontWeight: "bold",
+    margin: 0,
+    "&:hover": {
+      backgroundImage: "linear-gradient(to right, #fd5001, #1f1f1f)",
+      color: "white",
+      textDecoration: "none"
+    }
+  },
+  teamName: {
+    padding: [0, 15, 0, 15]
+  },
+  owners: {
+    padding: [0, 15, 0, 15],
+    fontWeight: "normal",
+    position: "relative",
+    top: -2,
+    color: "#ccc",
+    fontSize: 12
+  }
+});
+
+const SideBarContainer = ({ classes, data: { loading, standings } }) => {
   if (loading) {
     return <span>loading...</span>;
   }
   return (
-    <div>
-      {standings.map(({ teamName, id }) => (
-        <span key={id}>{teamName}</span>
+    <Nav vertical className={classes.sidebar}>
+      {standings.map(({ teamName, wins, losses, owners, id }) => (
+        <NavItem
+          className={classes.navItem}
+          tag={Link}
+          key={id}
+          to={`/overview/${id}`}
+        >
+          <div className={classes.teamName}>{teamName}</div>
+          <div className={classes.owners}>{`(${wins}-${losses}) ${
+            owners[0].firstName
+          } ${owners[0].lastName}`}</div>
+        </NavItem>
       ))}
-    </div>
+    </Nav>
   );
 };
 
@@ -40,4 +78,7 @@ const query = gql`
   }
 `;
 
-export default graphql(query)(SideBarContainer);
+export default compose(
+  graphql(query),
+  injectSheet(styles)
+)(SideBarContainer);

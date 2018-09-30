@@ -1,17 +1,7 @@
-import React, { Component } from "react";
+import React from "react";
 import { ApolloProvider } from "react-apollo";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { ThemeProvider } from "react-jss";
-
-import {
-  Navbar,
-  Nav,
-  NavbarBrand,
-  Collapse,
-  Container,
-  Col,
-  Row
-} from "reactstrap";
 
 import client from "./apollo";
 import TeamStatsOverview from "./routes/TeamStatsOverview";
@@ -25,10 +15,7 @@ const App = props => {
         <ApolloProvider client={client}>
           <ThemeProvider theme={theme}>
             <Layout>
-              <Route
-                path="/stats/overview/:teamId"
-                component={TeamStatsOverview}
-              />
+              <Route path="/overview/:teamId" component={TeamStatsOverview} />
             </Layout>
           </ThemeProvider>
         </ApolloProvider>
