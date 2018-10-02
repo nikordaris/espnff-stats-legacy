@@ -4,6 +4,7 @@ import gql from "graphql-tag";
 import { Link } from "react-router-dom";
 import { Nav, NavItem } from "reactstrap";
 import injectSheet from "react-jss";
+import { withRouter } from "react-router";
 
 const styles = theme => ({
   sidebar: {},
@@ -12,7 +13,7 @@ const styles = theme => ({
     color: theme.colors.white,
     fontWeight: "bold",
     margin: 0,
-    "&:hover": {
+    "&:hover, &.active": {
       backgroundImage: `linear-gradient(to right, ${theme.colors.red}, ${
         theme.colors.black
       })`,
@@ -33,10 +34,16 @@ const styles = theme => ({
   }
 });
 
-const SideBarContainer = ({ classes, data: { loading, standings } }) => {
+const SideBarContainer = ({
+  classes,
+  location,
+  data: { loading, standings }
+}) => {
   if (loading) {
     return <span>loading...</span>;
   }
+  const teamMatch = /\/team\/(.*)\/.*/.exec(location.pathname);
+  const teamId = teamMatch ? teamMatch[1] : undefined;
   return (
     <Nav vertical className={classes.sidebar}>
       {standings.map(({ teamName, wins, losses, owners, id }) => (
@@ -44,6 +51,7 @@ const SideBarContainer = ({ classes, data: { loading, standings } }) => {
           className={classes.navItem}
           tag={Link}
           key={id}
+          active={teamId == id} // eslint-disable-line
           to={`/team/${id}/overview`}
         >
           <div className={classes.teamName}>{teamName}</div>
@@ -82,5 +90,6 @@ const query = gql`
 
 export default compose(
   graphql(query),
-  injectSheet(styles)
+  injectSheet(styles),
+  withRouter
 )(SideBarContainer);

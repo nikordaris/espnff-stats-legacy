@@ -1,16 +1,8 @@
 import React from "react";
 import { graphql, compose } from "react-apollo";
 import gql from "graphql-tag";
-import classnames from "classnames";
 import { Link } from "react-router-dom";
-import {
-  TabContent,
-  TabPane,
-  Nav,
-  NavItem,
-  NavLink,
-  Jumbotron
-} from "reactstrap";
+import { TabContent, TabPane, Nav, NavItem, NavLink } from "reactstrap";
 import injectSheet from "react-jss";
 
 import TeamStatsOverview from "../components/TeamStatsOverview";
