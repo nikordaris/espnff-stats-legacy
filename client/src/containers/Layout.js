@@ -7,12 +7,12 @@ import SideBar from "./SideBarContainer";
 import logo from "./espn-ff-logo.png";
 
 const styles = theme => ({
-  root: { height: "100vh" },
+  root: { minHeight: "100vh" },
   navbar: {
-    backgroundColor: "#0db04b"
+    backgroundColor: theme.colors.primary
   },
   navTitle: {
-    color: "white !important",
+    color: `${theme.colors.white} !important`,
     marginLeft: "auto",
     marginRight: "auto",
     fontWeight: "bold",
@@ -20,7 +20,7 @@ const styles = theme => ({
     textTransform: "uppercase"
   },
   brand: {
-    color: "white !important",
+    color: `${theme.colors.white} !important`,
     margin: 0,
     padding: 0,
     // display: "inline"
@@ -47,13 +47,17 @@ const styles = theme => ({
     display: "inline"
   },
   sidebarContainer: {
-    height: "100vh",
-    backgroundColor: "#1f1f1f",
+    minHeight: "100vh",
+    backgroundColor: theme.colors.secondary,
     padding: 0
   },
-  mainContainer: {},
+  mainContainer: {
+    color: theme.colors.white,
+    minHeight: "100vh"
+  },
   content: {
-    backgroundColor: "#1f1f1f"
+    paddingTop: 3,
+    backgroundColor: theme.colors.secondary
     // backgroundImage: "linear-gradient(to left, #0db04b, #1f1f1f)"
   }
 });

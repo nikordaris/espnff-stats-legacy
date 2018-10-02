@@ -9,12 +9,14 @@ const styles = theme => ({
   sidebar: {},
   navItem: {
     padding: [7, 0, 7, 0],
-    color: "white",
+    color: theme.colors.white,
     fontWeight: "bold",
     margin: 0,
     "&:hover": {
-      backgroundImage: "linear-gradient(to right, #fd5001, #1f1f1f)",
-      color: "white",
+      backgroundImage: `linear-gradient(to right, ${theme.colors.red}, ${
+        theme.colors.black
+      })`,
+      color: theme.colors.white,
       textDecoration: "none"
     }
   },
@@ -26,7 +28,7 @@ const styles = theme => ({
     fontWeight: "normal",
     position: "relative",
     top: -2,
-    color: "#ccc",
+    color: theme.colors.gray,
     fontSize: 12
   }
 });
@@ -42,7 +44,7 @@ const SideBarContainer = ({ classes, data: { loading, standings } }) => {
           className={classes.navItem}
           tag={Link}
           key={id}
-          to={`/overview/${id}`}
+          to={`/team/${id}/overview`}
         >
           <div className={classes.teamName}>{teamName}</div>
           <div className={classes.owners}>{`(${wins}-${losses}) ${

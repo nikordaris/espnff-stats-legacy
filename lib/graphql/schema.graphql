@@ -15,6 +15,7 @@ type TeamStats {
   prevTeamStats: [TeamStats]
   scoringPeriodId: Int!
   id: ID!
+  teamId: Int!
   teamName: String
   teamAbbrev: String
   logoUrl: String
