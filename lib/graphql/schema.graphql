@@ -51,6 +51,7 @@ type TeamStats {
 type LeagueStats {
   id: ID
   teamName: String
+  teamId: Int
   teamAbbrev: String
   logoUrl: String
   teamStats: [TeamStats!]

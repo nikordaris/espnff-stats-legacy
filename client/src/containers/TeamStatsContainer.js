@@ -5,10 +5,12 @@ import { Link } from "react-router-dom";
 import { TabContent, TabPane, Nav, NavItem, NavLink } from "reactstrap";
 import injectSheet from "react-jss";
 
-import TeamStatsOverview from "../components/TeamStatsOverview";
+import TeamWeeklyTable from "./TeamWeeklyTableContainer";
+import LeagueLineChart from "./LeagueLineChartContainer";
 
 const views = {
-  overview: TeamStatsOverview
+  overview: TeamWeeklyTable,
+  charts: LeagueLineChart
 };
 
 const styles = theme => ({
@@ -49,15 +51,7 @@ const styles = theme => ({
   }
 });
 
-const TeamStatsOverviewContainer = ({
-  classes,
-  teamId,
-  view,
-  data: { loading, teamStats }
-}) => {
-  if (loading) {
-    return <span>loading...</span>;
-  }
+const TeamStatsOverviewContainer = ({ classes, teamId, view }) => {
   return (
     <div>
       <Nav tabs className={classes.tabNav}>
@@ -79,7 +73,7 @@ const TeamStatsOverviewContainer = ({
           const View = views[viewKey];
           return (
             <TabPane key={`${viewKey}-tab`} tabId={viewKey}>
-              <View teamStats={teamStats} />
+              <View teamId={teamId} view={viewKey} />
             </TabPane>
           );
         })}
@@ -88,38 +82,4 @@ const TeamStatsOverviewContainer = ({
   );
 };
 
-const query = gql`
-  query TeamStatsQuery($id: ID!) {
-    teamStats(id: $id) {
-      id
-      scoringPeriodId
-      pointsFor
-      pointsAgainst
-      teamName
-      optimalPoints
-      benchPointsFor
-      totalOptimal
-      totalFor
-      totalBench
-      totalAgainst
-      seasonAvgOptimal
-      seasonLowOptimal
-      seasonHighOptimal
-      last3AvgOptimal
-      last3AvgFor
-      scoringDifferential
-      efficiency
-      totalEfficiency
-      seasonStdDevPF
-      totalDifferential
-      totalCoachRating
-    }
-  }
-`;
-
-export default compose(
-  graphql(query, {
-    options: props => ({ variables: { id: props.teamId } })
-  }),
-  injectSheet(styles)
-)(TeamStatsOverviewContainer);
+export default injectSheet(styles)(TeamStatsOverviewContainer);

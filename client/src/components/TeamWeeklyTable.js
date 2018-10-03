@@ -22,7 +22,7 @@ const styles = theme => ({
   }
 });
 
-const TeamStatsOverview = ({ teamStats, classes }) => {
+const TeamWeeklyTable = ({ teamStats, classes }) => {
   return (
     <Card className={classes.card}>
       <CardHeader className={classes.cardHeader}>{`${
@@ -63,4 +63,4 @@ const TeamStatsOverview = ({ teamStats, classes }) => {
   );
 };
 
-export default injectSheet(styles)(TeamStatsOverview);
+export default injectSheet(styles)(TeamWeeklyTable);
