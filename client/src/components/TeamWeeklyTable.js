@@ -32,12 +32,14 @@ const TeamWeeklyTable = ({ teamStats, classes }) => {
         <thead>
           <tr>
             <th>#</th>
-            <th>
-              PF <span className={classes.sdPF}>(&sigma;)</span>
-            </th>
-            <th>Bench</th>
-            <th>Optimal</th>
+            <th>PF</th>
             <th>PA</th>
+            <th>&sigma; PF</th>
+            <th>Optimal</th>
+            <th>Bench</th>
+            <th>Avg PF</th>
+            <th>Low PF</th>
+            <th>High PF</th>
             <th>Efficiency</th>
             <th>Coaching</th>
           </tr>
@@ -46,13 +48,14 @@ const TeamWeeklyTable = ({ teamStats, classes }) => {
           {teamStats.reverse().map(stats => (
             <tr key={stats.id}>
               <th scope="row">{stats.scoringPeriodId}</th>
-              <td>
-                {stats.pointsFor}{" "}
-                <span className={classes.sdPF}>({stats.seasonStdDevPF})</span>
-              </td>
-              <td>{stats.benchPointsFor}</td>
-              <td>{stats.optimalPoints}</td>
+              <td>{stats.pointsFor}</td>
               <td>{stats.pointsAgainst}</td>
+              <td>{stats.seasonStdDevPF}</td>
+              <td>{stats.optimalPoints}</td>
+              <td>{stats.benchPointsFor}</td>
+              <td>{stats.seasonAvgFor}</td>
+              <td>{stats.seasonLowFor}</td>
+              <td>{stats.seasonHighFor}</td>
               <td>{stats.efficiency * 100}%</td>
               <td>{stats.totalCoachRating}</td>
             </tr>

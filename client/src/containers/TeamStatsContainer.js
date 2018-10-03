@@ -4,13 +4,15 @@ import gql from "graphql-tag";
 import { Link } from "react-router-dom";
 import { TabContent, TabPane, Nav, NavItem, NavLink } from "reactstrap";
 import injectSheet from "react-jss";
+import { titleCase } from "change-case";
 
 import TeamWeeklyTable from "./TeamWeeklyTableContainer";
 import LeagueLineChart from "./LeagueLineChartContainer";
 
 const views = {
   overview: TeamWeeklyTable,
-  charts: LeagueLineChart
+  weeklyStandings: LeagueLineChart
+  // seasonStandings: LeagueLineChart
 };
 
 const styles = theme => ({
@@ -40,8 +42,7 @@ const styles = theme => ({
     })`,
     paddingTop: 4,
     paddingBottom: 4,
-    fontSize: 12,
-    textTransform: "capitalize"
+    fontSize: 12
   },
   tabContent: {
     padding: 15,
@@ -51,7 +52,7 @@ const styles = theme => ({
   }
 });
 
-const TeamStatsOverviewContainer = ({ classes, teamId, view }) => {
+const TeamStatsOverviewContainer = ({ classes, teamId, view, ...rest }) => {
   return (
     <div>
       <Nav tabs className={classes.tabNav}>
@@ -63,7 +64,7 @@ const TeamStatsOverviewContainer = ({ classes, teamId, view }) => {
               active={view === viewKey}
               to={`/team/${teamId}/${viewKey}`}
             >
-              {viewKey}
+              {titleCase(viewKey)}
             </NavLink>
           </NavItem>
         ))}
@@ -73,7 +74,7 @@ const TeamStatsOverviewContainer = ({ classes, teamId, view }) => {
           const View = views[viewKey];
           return (
             <TabPane key={`${viewKey}-tab`} tabId={viewKey}>
-              <View teamId={teamId} view={viewKey} />
+              <View {...rest} teamId={teamId} view={viewKey} />
             </TabPane>
           );
         })}

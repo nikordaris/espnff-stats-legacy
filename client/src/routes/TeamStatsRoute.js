@@ -7,7 +7,7 @@ const TeamStatsRoute = props => {
       params: { teamId, view = "overview" }
     }
   } = props;
-  return <TeamStatsContainer teamId={teamId} view={view} />;
+  return <TeamStatsContainer {...props} teamId={teamId} view={view} />;
 };
 
 export default TeamStatsRoute;

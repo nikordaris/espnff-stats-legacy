@@ -1,16 +1,29 @@
 import React from "react";
 import { graphql, compose } from "react-apollo";
 import gql from "graphql-tag";
+import { parse } from "qs";
 import LeagueLineChart from "../components/LeagueLineChart";
 
 const LeagueLineChartContainer = ({
   teamId,
+  history,
+  location,
   data: { loading, leagueStats }
 }) => {
   if (loading) {
     return <div>loading...</div>;
   }
-  return <LeagueLineChart teamId={teamId} leagueStats={leagueStats} />;
+  const params = parse(location.search, { ignoreQueryPrefix: true });
+  return (
+    <LeagueLineChart
+      onStatChange={stat =>
+        history.push({ pathname: location.pathname, search: `?stat=${stat}` })
+      }
+      selectedStat={params.stat}
+      teamId={teamId}
+      leagueStats={leagueStats}
+    />
+  );
 };
 
 const query = gql`

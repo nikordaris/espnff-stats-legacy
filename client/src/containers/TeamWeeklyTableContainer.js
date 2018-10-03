@@ -15,25 +15,18 @@ const query = gql`
     teamStats(id: $id) {
       id
       scoringPeriodId
+      teamId
       pointsFor
       pointsAgainst
+      benchPointsFor
       teamName
       optimalPoints
-      benchPointsFor
-      totalOptimal
-      totalFor
-      totalBench
-      totalAgainst
-      seasonAvgOptimal
-      seasonLowOptimal
-      seasonHighOptimal
-      last3AvgOptimal
-      last3AvgFor
+      seasonAvgFor
+      seasonLowFor
+      seasonHighFor
       scoringDifferential
       efficiency
-      totalEfficiency
       seasonStdDevPF
-      totalDifferential
       totalCoachRating
     }
   }

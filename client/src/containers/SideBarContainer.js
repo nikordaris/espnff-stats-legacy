@@ -52,7 +52,10 @@ const SideBarContainer = ({
           tag={Link}
           key={id}
           active={teamId == id} // eslint-disable-line
-          to={`/team/${id}/overview`}
+          to={{
+            ...location,
+            pathname: location.pathname.replace(/\/team\/\d+\//, `/team/${id}/`)
+          }}
         >
           <div className={classes.teamName}>{teamName}</div>
           <div className={classes.owners}>{`(${wins}-${losses}) ${
