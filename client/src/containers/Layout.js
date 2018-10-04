@@ -1,8 +1,20 @@
 import React from "react";
 import injectSheet from "react-jss";
 import { Helmet } from "react-helmet";
-import { Navbar, NavbarBrand, Container, Col, Row } from "reactstrap";
+import {
+  Navbar,
+  NavbarBrand,
+  Container,
+  Col,
+  Row,
+  NavbarToggler
+} from "reactstrap";
+import { withRouter } from "react-router";
+import { compose } from "react-apollo";
+import classnames from "classnames";
+import { MobileView, BrowserView } from "react-device-detect";
 
+import MobileNavContainer from "./MobileNavContainer";
 import SideBar from "./SideBarContainer";
 import logo from "./espn-ff-logo.png";
 
@@ -20,6 +32,7 @@ const styles = theme => ({
     textTransform: "uppercase"
   },
   brand: {
+    composes: ["mr-auto"],
     color: `${theme.colors.white} !important`,
     margin: 0,
     padding: 0,
@@ -56,41 +69,83 @@ const styles = theme => ({
     minHeight: "100vh"
   },
   content: {
+    minHeight: "100vh",
     paddingTop: 3,
     backgroundColor: theme.colors.secondary
     // backgroundImage: "linear-gradient(to left, #0db04b, #1f1f1f)"
+  },
+  toggler: {
+    composes: ["mr-2", "navbar-dark"],
+    padding: 0
   }
 });
 
-const Layout = ({ classes, children }) => {
-  return (
-    <div className={classes.root}>
-      <Helmet>
-        <title>FF Stats</title>
-      </Helmet>
-      <Navbar className={classes.navbar}>
-        <NavbarBrand className={classes.brand}>
-          <div className={classes.brandLogo}>
-            <img src={logo} width={50} />
-          </div>
-          <div className={classes.brandName}>
-            <span>FANTASYSTATS FOOTBALL</span>
-            <span>{process.env.REACT_APP_LEAGUE_NAME}</span>
-          </div>
-        </NavbarBrand>
-      </Navbar>
-      <Container fluid className={classes.mainContainer}>
-        <Row>
-          <Col md={3} className={classes.sidebarContainer}>
-            <SideBar />
-          </Col>
-          <Col md={9} className={classes.content}>
-            {children}
-          </Col>
-        </Row>
-      </Container>
-    </div>
-  );
-};
+class Layout extends React.Component {
+  state = {
+    collapsed: false
+  };
 
-export default injectSheet(styles)(Layout);
+  componentDidMount() {
+    const { location } = this.props;
+    console.log(location.pathname);
+    let collapsed = window.innerWidth <= 767;
+    if (window.innerWidth <= 767 && location.pathname === "/") {
+      collapsed = false;
+    }
+    this.setState({ collapsed });
+  }
+
+  toggleSidebar = () => {
+    if (window.innerWidth <= 767) {
+      this.setState({ collapsed: !this.state.collapsed });
+    }
+  };
+
+  render() {
+    const { classes, children } = this.props;
+    return (
+      <div className={classes.root}>
+        <Helmet>
+          <title>FF Stats</title>
+        </Helmet>
+        <Navbar className={classes.navbar} expand="md">
+          <NavbarToggler
+            onClick={this.toggleSidebar}
+            className={classes.toggler}
+          />
+          <NavbarBrand className={classnames([classes.brand])}>
+            <div className={classes.brandLogo}>
+              <img src={logo} width={50} />
+            </div>
+            <div className={classes.brandName}>
+              <span>FANTASYSTATS FOOTBALL</span>
+              <span>{process.env.REACT_APP_LEAGUE_NAME}</span>
+            </div>
+          </NavbarBrand>
+        </Navbar>
+        <Container fluid className={classes.mainContainer}>
+          <Row>
+            <Col
+              sm={12}
+              md={3}
+              style={{ minHeight: this.state.collapsed ? "100%" : undefined }}
+              className={classnames([classes.sidebarContainer])}
+            >
+              <MobileNavContainer
+                toggleSidebar={this.toggleSidebar}
+                collapsed={this.state.collapsed}
+              />
+            </Col>
+            <Col sm={12} md={9} className={classes.content}>
+              {children}
+            </Col>
+          </Row>
+        </Container>
+      </div>
+    );
+  }
+}
+export default compose(
+  injectSheet(styles),
+  withRouter
+)(Layout);

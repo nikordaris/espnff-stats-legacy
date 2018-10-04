@@ -2,7 +2,7 @@ import React from "react";
 import { graphql, compose } from "react-apollo";
 import gql from "graphql-tag";
 import { Link } from "react-router-dom";
-import { Nav, NavItem } from "reactstrap";
+import { Nav, NavItem, Collapse, NavbarToggler } from "reactstrap";
 import injectSheet from "react-jss";
 import { withRouter } from "react-router";
 
@@ -37,6 +37,7 @@ const styles = theme => ({
 const SideBarContainer = ({
   classes,
   location,
+  toggleSidebar,
   data: { loading, standings }
 }) => {
   if (loading) {
@@ -45,16 +46,19 @@ const SideBarContainer = ({
   const teamMatch = /\/team\/(.*)\/.*/.exec(location.pathname);
   const teamId = teamMatch ? teamMatch[1] : undefined;
   return (
-    <Nav vertical className={classes.sidebar}>
+    <Nav vertical className={classes.sidebar} navbar>
       {standings.map(({ teamName, wins, losses, owners, id }) => (
         <NavItem
           className={classes.navItem}
           tag={Link}
           key={id}
           active={teamId == id} // eslint-disable-line
+          onClick={toggleSidebar}
           to={{
             ...location,
-            pathname: location.pathname.replace(/\/team\/\d+\//, `/team/${id}/`)
+            pathname: location.pathname.includes("/team/")
+              ? location.pathname.replace(/\/team\/\d+\//, `/team/${id}/`)
+              : `/team/${id}/`
           }}
         >
           <div className={classes.teamName}>{teamName}</div>

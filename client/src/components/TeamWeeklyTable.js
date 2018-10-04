@@ -37,9 +37,9 @@ const TeamWeeklyTable = ({ teamStats, classes }) => {
             <th>&sigma; PF</th>
             <th>Optimal</th>
             <th>Bench</th>
-            <th>Avg PF</th>
-            <th>Low PF</th>
-            <th>High PF</th>
+            <th className="d-sm-none">Avg PF</th>
+            <th className="d-sm-none">Low PF</th>
+            <th className="d-sm-none">High PF</th>
             <th>Efficiency</th>
             <th>Coaching</th>
           </tr>
@@ -53,9 +53,9 @@ const TeamWeeklyTable = ({ teamStats, classes }) => {
               <td>{stats.seasonStdDevPF}</td>
               <td>{stats.optimalPoints}</td>
               <td>{stats.benchPointsFor}</td>
-              <td>{stats.seasonAvgFor}</td>
-              <td>{stats.seasonLowFor}</td>
-              <td>{stats.seasonHighFor}</td>
+              <td className="d-sm-none">{stats.seasonAvgFor}</td>
+              <td className="d-sm-none">{stats.seasonLowFor}</td>
+              <td className="d-sm-none">{stats.seasonHighFor}</td>
               <td>{stats.efficiency * 100}%</td>
               <td>{stats.totalCoachRating}</td>
             </tr>

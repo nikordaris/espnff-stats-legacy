@@ -16,7 +16,7 @@ custom:
   webpack:
     webpackConfig: ./webpack.config.js
     includeModules: true
-    packager: yarn
+    # packager: yarn
   client:
     bucketName: espn-ff-stats-${self:provider.stage}
     distributionFolder: client/build/
