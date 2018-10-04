@@ -28,7 +28,7 @@ const TeamWeeklyTable = ({ teamStats, classes }) => {
       <CardHeader className={classes.cardHeader}>{`${
         teamStats[0].teamName
       } Overview`}</CardHeader>
-      <CardBody tag={Table} className={classes.table} dark>
+      <CardBody tag={Table} className={classes.table} dark responsive>
         <thead>
           <tr>
             <th>#</th>

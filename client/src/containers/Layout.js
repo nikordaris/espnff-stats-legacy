@@ -103,6 +103,8 @@ class Layout extends React.Component {
 
   render() {
     const { classes, children } = this.props;
+    const title =
+      window.innerWidth <= 767 ? "FANTASYSTATS" : "FANTASYSTATS FOOTBALL";
     return (
       <div className={classes.root}>
         <Helmet>
@@ -118,7 +120,7 @@ class Layout extends React.Component {
               <img src={logo} width={50} />
             </div>
             <div className={classes.brandName}>
-              <span>FANTASYSTATS FOOTBALL</span>
+              <span>{title}</span>
               <span>{process.env.REACT_APP_LEAGUE_NAME}</span>
             </div>
           </NavbarBrand>
