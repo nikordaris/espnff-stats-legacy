@@ -80,7 +80,7 @@ class SeasonStandingsChart extends React.Component {
       teamId,
       leagueStats,
       classes,
-      selectedStat = "pointsFor"
+      selectedStat = "last3AvgFor"
     } = this.props;
     const currentTeam = leagueStats.find(stats => stats.teamId == teamId);
     console.log(currentTeam.teamAbbrev);
