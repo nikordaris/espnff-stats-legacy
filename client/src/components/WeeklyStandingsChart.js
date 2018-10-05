@@ -60,7 +60,7 @@ const styles = theme => ({
   }
 });
 
-class LeagueLineChart extends React.Component {
+class WeeklyStandingsChart extends React.Component {
   handleSelectStat = e => {
     const { onStatChange } = this.props;
     onStatChange(e.target.value);
@@ -148,8 +148,6 @@ class LeagueLineChart extends React.Component {
                   strokeWidth: rest.teamId == teamId ? 1 : 0.5
                 }
               };
-              const minY = min(teamStats.map(s => get(s, selectedStat)));
-              const maxY = max(teamStats.map(s => get(s, selectedStat)));
               return (
                 <VictoryLine
                   key={id}
@@ -167,4 +165,4 @@ class LeagueLineChart extends React.Component {
   }
 }
 
-export default injectSheet(styles)(LeagueLineChart);
+export default injectSheet(styles)(WeeklyStandingsChart);

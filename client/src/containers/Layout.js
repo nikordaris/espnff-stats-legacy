@@ -12,9 +12,7 @@ import {
 import { withRouter } from "react-router";
 import { compose } from "react-apollo";
 import classnames from "classnames";
-import { MobileView, BrowserView } from "react-device-detect";
 
-import MobileNavContainer from "./MobileNavContainer";
 import SideBar from "./SideBarContainer";
 import logo from "./espn-ff-logo.png";
 
@@ -133,7 +131,7 @@ class Layout extends React.Component {
               style={{ minHeight: this.state.collapsed ? "100%" : undefined }}
               className={classnames([classes.sidebarContainer])}
             >
-              <MobileNavContainer
+              <SideBar
                 toggleSidebar={this.toggleSidebar}
                 collapsed={this.state.collapsed}
               />

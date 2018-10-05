@@ -37,6 +37,7 @@ const styles = theme => ({
 const SideBarContainer = ({
   classes,
   location,
+  collapsed,
   toggleSidebar,
   data: { loading, standings }
 }) => {
@@ -46,28 +47,30 @@ const SideBarContainer = ({
   const teamMatch = /\/team\/(.*)\/.*/.exec(location.pathname);
   const teamId = teamMatch ? teamMatch[1] : undefined;
   return (
-    <Nav vertical className={classes.sidebar} navbar>
-      {standings.map(({ teamName, wins, losses, owners, id }) => (
-        <NavItem
-          className={classes.navItem}
-          tag={Link}
-          key={id}
-          active={teamId == id} // eslint-disable-line
-          onClick={toggleSidebar}
-          to={{
-            ...location,
-            pathname: location.pathname.includes("/team/")
-              ? location.pathname.replace(/\/team\/\d+\//, `/team/${id}/`)
-              : `/team/${id}/`
-          }}
-        >
-          <div className={classes.teamName}>{teamName}</div>
-          <div className={classes.owners}>{`(${wins}-${losses}) ${
-            owners[0].firstName
-          } ${owners[0].lastName}`}</div>
-        </NavItem>
-      ))}
-    </Nav>
+    <Collapse isOpen={!collapsed} navbar>
+      <Nav vertical className={classes.sidebar} navbar>
+        {standings.map(({ teamName, wins, losses, owners, id }) => (
+          <NavItem
+            className={classes.navItem}
+            tag={Link}
+            key={id}
+            active={teamId == id} // eslint-disable-line
+            onClick={toggleSidebar}
+            to={{
+              ...location,
+              pathname: location.pathname.includes("/team/")
+                ? location.pathname.replace(/\/team\/\d+\//, `/team/${id}/`)
+                : `/team/${id}/`
+            }}
+          >
+            <div className={classes.teamName}>{teamName}</div>
+            <div className={classes.owners}>{`(${wins}-${losses}) ${
+              owners[0].firstName
+            } ${owners[0].lastName}`}</div>
+          </NavItem>
+        ))}
+      </Nav>
+    </Collapse>
   );
 };
 

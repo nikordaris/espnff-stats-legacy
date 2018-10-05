@@ -1,21 +1,21 @@
 import React from "react";
-import { graphql, compose } from "react-apollo";
+import { graphql } from "react-apollo";
 import gql from "graphql-tag";
 import { parse } from "qs";
-import LeagueLineChart from "../components/LeagueLineChart";
+import SeasonStandingsChart from "../components/SeasonStandingsChart";
 
-const LeagueLineChartContainer = ({
+const SeasonStandingsContainer = ({
   teamId,
   history,
   location,
   data: { loading, leagueStats }
 }) => {
-  if (loading) {
+  if (loading || !leagueStats) {
     return <div>loading...</div>;
   }
   const params = parse(location.search, { ignoreQueryPrefix: true });
   return (
-    <LeagueLineChart
+    <SeasonStandingsChart
       onStatChange={stat =>
         history.push({ pathname: location.pathname, search: `?stat=${stat}` })
       }
@@ -38,29 +38,25 @@ const query = gql`
         id
         scoringPeriodId
         teamId
-        pointsFor
-        pointsAgainst
-        benchPointsFor
-        teamName
-        optimalPoints
-        totalOptimal
-        totalFor
-        totalBench
-        totalAgainst
-        seasonAvgOptimal
-        seasonLowOptimal
-        seasonHighOptimal
-        last3AvgOptimal
         last3AvgFor
-        scoringDifferential
-        efficiency
-        totalEfficiency
-        seasonStdDevPF
+        last3AvgOptimal
+        seasonAvgFor
+        seasonHighFor
+        seasonLowFor
+        seasonAvgOptimal
+        seasonHighOptimal
+        seasonLowOptimal
+        totalFor
+        totalAgainst
+        totalBench
+        totalOptimal
         totalDifferential
+        seasonStdDevPF
+        totalEfficiency
         totalCoachRating
       }
     }
   }
 `;
 
-export default graphql(query)(LeagueLineChartContainer);
+export default graphql(query)(SeasonStandingsContainer);

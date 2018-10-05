@@ -7,12 +7,13 @@ import injectSheet from "react-jss";
 import { titleCase } from "change-case";
 
 import TeamWeeklyTable from "./TeamWeeklyTableContainer";
-import LeagueLineChart from "./LeagueLineChartContainer";
+import WeeklyStandings from "./WeeklyStandingsContainer";
+import SeasonStandings from "./SeasonStandingsContainer";
 
 const views = {
   overview: TeamWeeklyTable,
-  weeklyStandings: LeagueLineChart
-  // seasonStandings: LeagueLineChart
+  weeklyStandings: WeeklyStandings,
+  seasonStandings: SeasonStandings
 };
 
 const styles = theme => ({
