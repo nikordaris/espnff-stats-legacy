@@ -28,7 +28,7 @@ $ yarn && yarn start
 
 GraphQL Playground http://localhost:4000/graphql
 
-```json
+```
 query LeagueStatsQuery {
   leagueStats {
     id
