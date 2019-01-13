@@ -28,6 +28,43 @@ $ yarn && yarn start
 
 GraphQL Playground http://localhost:4000/graphql
 
+```json
+query LeagueStatsQuery {
+  leagueStats {
+    id
+    teamName
+    teamId
+    teamAbbrev
+    logoUrl
+    teamStats {
+      id
+      scoringPeriodId
+      teamId
+      pointsFor
+      pointsAgainst
+      benchPointsFor
+      teamName
+      optimalPoints
+      totalOptimal
+      totalFor
+      totalBench
+      totalAgainst
+      seasonAvgOptimal
+      seasonLowOptimal
+      seasonHighOptimal
+      last3AvgOptimal
+      last3AvgFor
+      scoringDifferential
+      efficiency
+      totalEfficiency
+      seasonStdDevPF
+      totalDifferential
+      totalCoachRating
+    }
+  }
+}
+
+```
 # Deploy to AWS
 
 1. configure .env and client/.env.production. See .env.example
