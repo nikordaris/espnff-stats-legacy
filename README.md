@@ -26,6 +26,8 @@ $ cd client/
 $ yarn && yarn start
 ```
 
+GraphQL Playground http://localhost:4000/graphql
+
 # Deploy to AWS
 
 1. configure .env and client/.env.production. See .env.example
